@@ -62,6 +62,8 @@ interface IPeepsContext {
   fetchBalance: any
   verified: boolean,
   setVerified: any,
+  coinbaseVerified: boolean,
+  setCoinbaseVerified: any,
 }
 
 const PeepsContext = createContext<IPeepsContext>({
@@ -113,6 +115,8 @@ const PeepsContext = createContext<IPeepsContext>({
   fetchBalance: null,
   verified: false,
   setVerified: null,
+  coinbaseVerified: false,
+  setCoinbaseVerified: null,
 });
 
 export interface PeepsProviderProps {
@@ -219,7 +223,8 @@ const PeepsProvider: React.FC<PeepsProviderProps> = ({
   const [myFollowersListData, setMyFollowersListData] = useState<any>([]);
   const [walletBalance, setWalletBalance] = useState<string>("0");
   const [isPostModalOpen, setIsPostModalOpen] = useState<boolean>(false);
-  const [verified, setVerified] = useState<boolean>(false)
+  const [verified, setVerified] = useState<boolean>(false);
+  const [coinbaseVerified, setCoinbaseVerified] = useState<boolean>(false);
 
   const [cursor, setCursor] = useState(null);
   const [endCursor, setEndCursor] = useState(20);
@@ -918,6 +923,8 @@ const PeepsProvider: React.FC<PeepsProviderProps> = ({
         fetchBalance,
         verified,
         setVerified,
+        coinbaseVerified,
+        setCoinbaseVerified,
       }}
     >
       {children}

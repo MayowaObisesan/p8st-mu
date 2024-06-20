@@ -13,11 +13,12 @@ import {
 } from "@nextui-org/react";
 import { DiscordIcon } from "@/components/icons";
 import { LucideLinkedin } from "lucide-react";
-import Web3 from "web3"
+import Web3 from "web3";
 import TransgateConnect from "@zkpass/transgate-js-sdk";
 import { useState } from "react";
 import { usePeepsContext } from "../context";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 export default function VerifyIdentity() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -77,6 +78,8 @@ export default function VerifyIdentity() {
 
         if (signedAllocatorAddress === "0x19a567b3b212a5b35bA0E3B600FbEd5c2eE9083d" && signedValidatorAddress === validatorAddress) {
           setVerified(!verified);
+          toast.success("Identity verified successfully");
+          toast("You can proceed create your profile");
         }
 
         // verify the res onchain/offchain based on the requirement
@@ -143,6 +146,8 @@ export default function VerifyIdentity() {
 
         if (signedAllocatorAddress === "0x19a567b3b212a5b35bA0E3B600FbEd5c2eE9083d" && signedValidatorAddress === validatorAddress) {
           setVerified(!verified);
+          toast.success("Identity verified successfully");
+          toast("You can proceed create your profile");
         }
 
         // verify the res onchain/offchain based on the requirement
