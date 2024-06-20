@@ -29,6 +29,7 @@ import {
 } from "@nextui-org/react";
 import NextImage from "next/image";
 import EditProfileModalForm from "@/app/components/EditProfileModal";
+import { LucideWifiOff } from "lucide-react";
 
 const Profile = ({ params }: { params: any }) => {
   const {
@@ -307,6 +308,24 @@ const Profile = ({ params }: { params: any }) => {
     }
   };
 
+  if (walletStatus === "disconnected") {
+    return (
+      <section className="flex flex-row items-center justify-center hero min-h-96 card dark:bg-transparent">
+        <div className="hero-content flex flex-col items-center text-center gap-y-8">
+          <div>
+            {/* - Bounce animation */}
+            <LucideWifiOff size={48} className="text-default-500" />
+          </div>
+          <div>
+            Unable to access your Profile.
+            <br />
+            Please Connect your wallet
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <Home>
       <section>
@@ -398,7 +417,7 @@ const Profile = ({ params }: { params: any }) => {
                       <NAvatar
                         showFallback
                         isBordered
-                        color="primary"
+                        color="success"
                         src={userData?.profilePicture}
                         className="w-20 h-20 text-large"
                       />
@@ -567,147 +586,6 @@ const Profile = ({ params }: { params: any }) => {
                 )}
               </NTab>
             </Tabs>
-
-            <div className={"hidden"}>
-              <Tab.Group>
-                <Tab.List className="flex space-x-1 rounded-xl p-1">
-                  <Tab
-                    className={({ selected }) =>
-                      classNames(
-                        "rounded-lg px-8 py-2.5 font-medium leading-5",
-                        "ring-white/60 focus:outline-none hover:bg-gray-300",
-                        selected
-                          ? "bg-primary dark:bg-[#4563eb] text-primary-content dark:text-white shadow"
-                          : "text-base-content hover:bg-white/[0.12] dark:hover:text-white"
-                      )
-                    }
-                  >
-                    Posts
-                  </Tab>
-                  <Tab
-                    className={({ selected }) =>
-                      classNames(
-                        "rounded-lg px-8 py-2.5 font-medium leading-5",
-                        "ring-white/60 focus:outline-none hover:bg-gray-300",
-                        selected
-                          ? "bg-primary dark:bg-[#4563eb] text-primary-content dark:text-white shadow"
-                          : "text-base-content hover:bg-white/[0.12] dark:hover:text-white"
-                      )
-                    }
-                  >
-                    Likes
-                  </Tab>
-                  <Tab
-                    className={({ selected }) =>
-                      classNames(
-                        "rounded-lg px-8 py-2.5 font-medium leading-5",
-                        "ring-white/60 focus:outline-none hover:bg-gray-300",
-                        selected
-                          ? "bg-primary dark:bg-[#4563eb] text-primary-content dark:text-white shadow"
-                          : "text-base-content hover:bg-white/[0.12] dark:hover:text-white"
-                      )
-                    }
-                  >
-                    Followers
-                  </Tab>
-                </Tab.List>
-                <Tab.Panels>
-                  <Tab.Panel
-                    className={classNames(
-                      "rounded-xl py-3",
-                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
-                    )}
-                  >
-                    {myPostsData ? (
-                      myPostsData.map((eachPost: any, index: number) => (
-                        <PostContainer key={index}>
-                          {/*{console.log(eachPost)}*/}
-                          <PostUser {...eachPost} />
-                          <PostBody postMetaData={myPosts[index]}>
-                            {eachPost?.post_content}
-                          </PostBody>
-                          <PostActionsContainer
-                            postId={index}
-                            message={eachPost?.post_content}
-                            upload={eachPost?.post_media}
-                            postData={eachPost}
-                            postMetaData={myPosts}
-                          />
-                          {/*{<PostContainer></PostContainer>}*/}
-                        </PostContainer>
-                      ))
-                    ) : (
-                      <div>No posts</div>
-                    )}
-                  </Tab.Panel>
-                  <Tab.Panel
-                    className={classNames(
-                      "rounded-xl p-3",
-                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
-                    )}
-                  >
-                    {myLikedPostsData ? (
-                      myLikedPostsData.map((eachPost: any, index: number) => (
-                        <PostContainer key={index}>
-                          <PostUser {...eachPost} />
-                          <PostBody postMetaData={myLikedPosts?.[index]}>
-                            {eachPost?.post_content}
-                          </PostBody>
-                          <PostActionsContainer
-                            postId={index}
-                            message={eachPost?.post_content}
-                            upload={eachPost?.post_media}
-                            postData={eachPost}
-                            postMetaData={myPosts}
-                          />
-                          {/*{<PostContainer></PostContainer>}*/}
-                        </PostContainer>
-                      ))
-                    ) : (
-                      <div>No Liked posts</div>
-                    )}
-                  </Tab.Panel>
-                  <Tab.Panel
-                    className={classNames(
-                      "rounded-xl p-3",
-                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
-                    )}
-                  >
-                    {myFollowersListData ? (
-                      myFollowersListData.map(
-                        (eachFollower: any, index: number) => (
-                          <Link
-                            key={index}
-                            href={`/profile/${eachFollower?.username}`}
-                            className={
-                              "card card-compact p-4 flex flex-row gap-x-3 bg-base-200"
-                            }
-                          >
-                            <div className="avatar">
-                              <div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1">
-                                {eachFollower?.displayPicture ? (
-                                  <Image
-                                    src=""
-                                    alt={""}
-                                    width={56}
-                                    height={56}
-                                  />
-                                ) : (
-                                  <span className="text-3xl"></span>
-                                )}
-                              </div>
-                            </div>
-                            {eachFollower?.username}
-                          </Link>
-                        )
-                      )
-                    ) : (
-                      <div>No Followers yet</div>
-                    )}
-                  </Tab.Panel>
-                </Tab.Panels>
-              </Tab.Group>
-            </div>
           </section>
         )}
 

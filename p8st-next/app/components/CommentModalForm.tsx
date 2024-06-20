@@ -1,18 +1,29 @@
-import React, { useEffect, useState } from "react";
-import * as AlertDialog from "@radix-ui/react-alert-dialog";
-import { X as LucideX } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Avatar,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+  Checkbox,
+  Input,
+  Textarea,
+  Link,
+} from "@nextui-org/react";
+import { CameraIcon, LucideLock, LucideMail, LucideX } from "lucide-react";
+import { AvatarProfile } from "./Avatar";
 import { usePeepsContext } from "../context";
-import { ButtonLoader } from "./Button";
-import toast from "react-hot-toast";
-import { PostBody, PostContainer, PostUser } from "./Posts";
-import axios from "axios";
-import classNames from "classnames";
 import {
   useActiveAccount,
   useActiveWalletConnectionStatus,
-  useConnect,
 } from "thirdweb/react";
-import { Button } from "@nextui-org/button";
+import axios from "axios";
+import toast from "react-hot-toast";
+import classNames from "classnames";
+import { PostBody, PostContainer, PostUser } from "./Posts";
 
 interface ICommentModal {
   postUuid: number;
@@ -22,17 +33,17 @@ interface ICommentModal {
   postMetaData: any;
 }
 
-export const CommentModal = ({
+export default function CommentFormModal({
   postUuid,
   message,
   upload,
   postData,
   postMetaData,
-}: ICommentModal) => {
+}: ICommentModal) {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { userData, setRefreshPost, refreshPost } = usePeepsContext();
   const walletStatus = useActiveWalletConnectionStatus();
   const activeAccount = useActiveAccount();
-  const { connect, isConnecting } = useConnect();
   const address = activeAccount?.address;
   const [commentText, setCommentText] = useState<string>("");
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
@@ -207,95 +218,80 @@ export const CommentModal = ({
   };
 
   return (
-    <AlertDialog.Root open={open} onOpenChange={setOpen}>
-      <AlertDialog.Trigger asChild>
-        <Button size="sm" variant="light" radius="md">
-          <span className="flex-shrink-0 inline-flex justify-center items-center lg:h-[48px] rounded-full border-0 border-gray-200 bg-transparent text-gray-800 mx-auto scale-75 lg:scale-100 dark:bg-slate-90 dark:border-gray-700 dark:text-gray-200">
-            <svg
-              className={classNames("flex-shrink-0 w-5 h-5", {
-                "text-primary": commentsUpdate > 0,
-              })}
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z" />
-              <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1" />
-            </svg>
-          </span>
-          <span
-            className={classNames("text-xs", {
-              "font-bold": commentsUpdate > 0,
+    <>
+      {/* <Button onPress={onOpen} color="success" variant="flat">
+        Edit Profile
+      </Button> */}
+      <Button onPress={onOpen} variant="light" radius="md">
+        <span className="flex-shrink-0 inline-flex justify-center items-center lg:h-[48px] rounded-full border-0 border-gray-200 bg-transparent text-gray-800 mx-auto scale-75 lg:scale-100 dark:bg-slate-90 dark:border-gray-700 dark:text-gray-200">
+          <svg
+            className={classNames("flex-shrink-0 w-5 h-5", {
+              "text-primary": commentsUpdate > 0,
             })}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
-            {/*{postData?.post_comments > 0 ? postData?.post_comments : "Comment"}*/}
-            {commentsUpdate > 0 ? commentsUpdate : "Comment"}
-          </span>
-        </Button>
-      </AlertDialog.Trigger>
-      <AlertDialog.Portal>
-        <AlertDialog.Overlay className="bg-black/40 bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0 dark:bg-base-300/80 dark:backdrop-blur-sm z-30" />
-        <AlertDialog.Content className="rounded-box z-40 data-[state=open]:animate-contentShow fixed bottom-4 lg:top-[50%] left-[50%] max-h-[85vh] w-[96vw] max-w-full lg:w-[90vw] lg:max-w-[500px] lg:h-[80vh] bg-base-100 translate-x-[-50%] lg:translate-y-[-50%] lg:rounded-lg p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none dark:bg-base-100">
-          {/* <AlertDialog.Title className="text-mauve12 mt-4 mb-12 text-xl text-center font-bold">
-            Comment on @{postData?.username} peep
-          </AlertDialog.Title> */}
-          <AlertDialog.Description className="text-[15px] leading-normal h-full flex flex-col">
-            <PostContainer>
-              <PostUser {...postData} />
-              <PostBody postMetaData={postMetaData}>{message}</PostBody>
-              {/* <PostActions postId={postData.id} /> */}
-            </PostContainer>
-            {/* We require this to serve the best experience */}
-            <div className="card items-center w-full flex-auto">
-              <form className="block w-full h-full flex flex-col">
-                <div className="max-w-full h-full text-base flex-auto bg-base-300 rounded-box">
-                  {/* <label className="label">
-                    <span className="label-text">Your comment</span>
-                  </label> */}
-                  <textarea
-                    className="textarea textarea-lg lg:text-base border-0 w-full h-54 lg:h-full resize-none bg-transparent focus:outline-primary"
-                    placeholder="write your comment here"
-                    onChange={(e) => setCommentText(e.target.value)}
-                  ></textarea>
-                </div>
-                <div className="form-control mt-6">
-                  <button
-                    type="button"
-                    className="btn btn-primary rounded-xl"
-                    onClick={handleCreateComment}
-                    disabled={isSubmit}
-                  >
-                    {isSubmit ? <ButtonLoader /> : "Send comment"}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </AlertDialog.Description>
-          <div className="absolute top-4 right-4 flex justify-end gap-[25px]">
-            <AlertDialog.Cancel asChild>
-              <button
-                title="Close profile dialog"
-                type="button"
-                className="btn size-12 rounded-full text-xl"
-                aria-label="Close"
-              >
-                <LucideX size={48} strokeWidth={6} />
-              </button>
-            </AlertDialog.Cancel>
-            {/* <AlertDialog.Action asChild>
-            <button className="text-red11 bg-red4 hover:bg-red5 focus:shadow-red7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]">
-              Yes, delete account
-            </button>
-          </AlertDialog.Action> */}
-          </div>
-        </AlertDialog.Content>
-      </AlertDialog.Portal>
-    </AlertDialog.Root>
+            <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z" />
+            <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1" />
+          </svg>
+        </span>
+        <span
+          className={classNames("text-xs", {
+            "font-bold": commentsUpdate > 0,
+          })}
+        >
+          {/*{postData?.post_comments > 0 ? postData?.post_comments : "Comment"}*/}
+          {commentsUpdate > 0 ? commentsUpdate : "Comment"}
+        </span>
+      </Button>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
+        <ModalContent className="text-left">
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1 py-8">
+                Comment on this post
+              </ModalHeader>
+              <ModalBody>
+                <PostContainer>
+                  <PostUser {...postData} />
+                  <PostBody postMetaData={postMetaData}>{message}</PostBody>
+                  {/* <PostActions postId={postData.id} /> */}
+                </PostContainer>
+
+                <Textarea
+                  minRows={7}
+                  autoFocus
+                  label="Your comment"
+                  placeholder="Write your comment here"
+                  onChange={(e) => setCommentText(e.target.value)}
+                  className=""
+                />
+              </ModalBody>
+              <ModalFooter>
+                {/* <Button color="danger" variant="flat" onPress={onClose}>
+                  Close
+                </Button> */}
+                <Button
+                  isLoading={isSubmit}
+                  isDisabled={commentText === ""}
+                  color="success"
+                  onPress={onClose}
+                  onClick={handleCreateComment}
+                >
+                  Send comment
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    </>
   );
-};
+}

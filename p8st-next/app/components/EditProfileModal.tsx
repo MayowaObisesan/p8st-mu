@@ -161,8 +161,8 @@ export default function EditProfileModalForm() {
 
   return (
     <>
-      <Button onPress={onOpen} color="success">
-        Open Modal
+      <Button onPress={onOpen} color="success" variant="flat">
+        Edit Profile
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
         <ModalContent className="text-center">
@@ -231,7 +231,7 @@ export default function EditProfileModalForm() {
                   className="btn btn-sm my-4"
                 >
                   <Button
-                    color="primary"
+                    color="success"
                     variant="flat"
                     startContent={<CameraIcon />}
                   >
@@ -252,6 +252,8 @@ export default function EditProfileModalForm() {
                   autoFocus
                   label="Display name"
                   placeholder="e.g., Blessed07.eth"
+                  onChange={(e) => setDisplayName(e.target.value)}
+                  value={displayName}
                 />
                 {/* <Input
                   endContent={
@@ -264,6 +266,8 @@ export default function EditProfileModalForm() {
                 <Textarea
                   label="About yourself"
                   placeholder="Tell the world something about yourself"
+                  onChange={(e) => setBio(e.target.value)}
+                  value={bio}
                   className=""
                 />
                 {/* <Input
@@ -292,7 +296,13 @@ export default function EditProfileModalForm() {
                 {/* <Button color="danger" variant="flat" onPress={onClose}>
                   Close
                 </Button> */}
-                <Button color="primary" onPress={onClose}>
+                <Button
+                  isLoading={isSubmit}
+                  isDisabled={(bio && displayName) === ""}
+                  color="success"
+                  // onPress={onClose}
+                  onClick={handleEditProfile}
+                >
                   Submit
                 </Button>
               </ModalFooter>

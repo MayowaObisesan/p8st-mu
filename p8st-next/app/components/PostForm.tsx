@@ -12,7 +12,13 @@ import { v4 as uuidv4 } from "uuid";
 import { ButtonLoader } from "./Button";
 import { LucideImagePlus, LucideUpload, LucideX } from "lucide-react";
 import Image from "next/image";
-import { useActiveAccount, useActiveWalletConnectionStatus } from "thirdweb/react";
+import {
+  useActiveAccount,
+  useActiveWalletConnectionStatus,
+} from "thirdweb/react";
+import { Textarea } from "@nextui-org/input";
+import { Button } from "@nextui-org/button";
+import { Card } from "@nextui-org/react";
 // import { useAccount } from "wagmi";
 
 export interface IInputProps {
@@ -21,8 +27,13 @@ export interface IInputProps {
 
 const PostForm: React.FC<IInputProps> = (props) => {
   // const {address, isConnected} = useAccount();
-  const { userData, refreshPost, setRefreshPost, pinFileToIPFS, setIsPostModalOpen } =
-    usePeepsContext();
+  const {
+    userData,
+    refreshPost,
+    setRefreshPost,
+    pinFileToIPFS,
+    setIsPostModalOpen,
+  } = usePeepsContext();
   const activeAccount = useActiveAccount();
   const address = activeAccount?.address;
   const walletStatus = useActiveWalletConnectionStatus();
@@ -146,7 +157,7 @@ const PostForm: React.FC<IInputProps> = (props) => {
     setFormVideoPreview("");
   };
 
-  useEffect(() => { }, [
+  useEffect(() => {}, [
     postText,
     formImage,
     formImagePreview,
@@ -154,32 +165,42 @@ const PostForm: React.FC<IInputProps> = (props) => {
   ]);
 
   return (
-    <div className="bg-gray-200 dark:bg-base-300 rounded-box focus-within:ring-2 focus-within:ring-primary dark:focus-within:ring-[#4563eb]">
-      <textarea
+    <Card className="rounded-box focus-within:ring-2 focus-within:ring-primary dark:focus-within:ring-[#4563eb]">
+      {/* <textarea
         placeholder="Write something"
         className="textarea textarea-lg text-base border-0 w-full resize-none bg-transparent focus:outline-0"
+        ></textarea> */}
+      <Textarea
+        minRows={6}
+        label=""
+        placeholder="Write something"
+        className="w-full resize-none bg-transparent focus:outline-0"
         ref={postTextField}
         onChange={(e) => setPostText(e.target.value)}
         value={postText}
-      ></textarea>
+      />
       <div>
         {formImagePreview && (
-          <div className={"relative inline-block bg-pink-400 mx-8"}>
+          <div className={"relative inline-block bg-pink-400 mx-8 mt-4"}>
             <Image
               src={formImagePreview}
               alt={"formImagePreview"}
               width={120}
               height={120}
-              className={"shadow-2xl"}
+              className={"shadow-2xl rounded-xl"}
             />
-            <span
+            <Button
+              size="sm"
+              color="danger"
+              radius="full"
+              isIconOnly
               className={
                 "absolute -top-2 -right-2 btn btn-sm btn-circle btn-error"
               }
               onClick={removeFormImage}
             >
               <LucideX size={16} strokeWidth={4} />
-            </span>
+            </Button>
           </div>
         )}
         {formVideoPreview && (
@@ -211,7 +232,7 @@ const PostForm: React.FC<IInputProps> = (props) => {
             />
           </label>
         </span>
-        <button
+        {/* <button
           title="Submit post"
           type="button"
           disabled={postText.length < 1 || isSubmit}
@@ -219,9 +240,17 @@ const PostForm: React.FC<IInputProps> = (props) => {
           onClick={handlePost}
         >
           {isSubmit ? <ButtonLoader /> : "Post"}
-        </button>
+        </button> */}
+        <Button
+          isDisabled={!postText}
+          color="success"
+          variant={!postText ? "flat" : "shadow"}
+          onClick={handlePost}
+        >
+          Post
+        </Button>
       </div>
-    </div>
+    </Card>
   );
 };
 
