@@ -60,9 +60,9 @@ export const siteConfig = {
     },
   ],
   links: {
-    github: "https://github.com/nextui-org/nextui",
+    github: "https://github.com/MayowaObisesan/p8st-mu",
     twitter: "https://twitter.com/getnextui",
-    docs: "https://nextui.org",
+    docs: "https://peeps-docs.vercel.app",
     discord: "https://discord.gg/9b6yyZKmH4",
     sponsor: "https://patreon.com/jrgarciadev",
   },

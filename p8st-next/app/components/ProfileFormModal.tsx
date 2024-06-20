@@ -151,8 +151,8 @@ export default function ProfileFormModal() {
 
   return (
     <>
-      <Button onPress={onOpen} color="success">
-        Open Modal
+      <Button onPress={onOpen} color="">
+        Create Profile
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
         <ModalContent className="text-center">
@@ -186,7 +186,7 @@ export default function ProfileFormModal() {
                   <label
                     htmlFor={"id-avatar-dp"}
                     title="Select dp"
-                    className="my-4 inline-block w-auto bg-orange-400"
+                    className="my-4 inline-block w-auto"
                   >
                     Select display picture
                     <input

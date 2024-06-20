@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 import toast from "react-hot-toast";
 import { usePeepsContext } from "../../context";
+import Home from "@/app/home/baseLayout";
 
 const Page = ({ params }: { params: any }) => {
   const [post, setPost] = useState<any>();
@@ -87,45 +88,51 @@ const Page = ({ params }: { params: any }) => {
 
   useEffect(() => {}, [post]);
   return (
-    <div>
-      {post && (
-        <PostContainer key={post}>
-          <PostUser {...post} />
-          <PostBody postMetaData={postMetadata?.[0]}>
-            {post?.post_content}
-          </PostBody>
-          <PostActionsContainer
-            postId={0}
-            message={post?.post_content}
-            upload={post?.post_media}
-            postData={post}
-            postMetaData={postMetadata}
-          />
-        </PostContainer>
-      )}
-      <div className={"prose text-lg lg:text-4xl font-bold text-gray-400 px-2 lg:py-6 mt-8 lg:mt-8"}>
-        Comments
-      </div>
-      {commentsData ? (
-        <div>
-          {commentsData?.map((item: any, index: number) => (
-            <>
-              <PostContainer key={item}>
-                <PostUser {...item} />
-                <PostBody postMetaData={null}>{item?.post_content}</PostBody>
-                <PostActionsContainer
-                  postId={index}
-                  message={item?.post_content}
-                  upload={item?.post_media}
-                  postData={item}
-                  postMetaData={comments}
-                />
-              </PostContainer>
-            </>
-          ))}
+    <Home>
+      <div>
+        {post && (
+          <PostContainer key={post}>
+            <PostUser {...post} />
+            <PostBody postMetaData={postMetadata?.[0]}>
+              {post?.post_content}
+            </PostBody>
+            <PostActionsContainer
+              postId={0}
+              message={post?.post_content}
+              upload={post?.post_media}
+              postData={post}
+              postMetaData={postMetadata}
+            />
+          </PostContainer>
+        )}
+        <div
+          className={
+            "prose text-lg lg:text-4xl font-bold text-gray-400 px-2 lg:py-6 mt-8 lg:mt-8"
+          }
+        >
+          Comments
         </div>
-      ) : null}
-    </div>
+        {commentsData ? (
+          <div>
+            {commentsData?.map((item: any, index: number) => (
+              <>
+                <PostContainer key={item}>
+                  <PostUser {...item} />
+                  <PostBody postMetaData={null}>{item?.post_content}</PostBody>
+                  <PostActionsContainer
+                    postId={index}
+                    message={item?.post_content}
+                    upload={item?.post_media}
+                    postData={item}
+                    postMetaData={comments}
+                  />
+                </PostContainer>
+              </>
+            ))}
+          </div>
+        ) : null}
+      </div>
+    </Home>
   );
 };
 

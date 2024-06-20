@@ -28,6 +28,7 @@ import {
 import { ConnectButton } from "thirdweb/react";
 import { client } from "@/app/client";
 import { arbitrumSepolia } from "thirdweb/chains";
+import { Avatar, Badge } from "@nextui-org/react";
 
 export const Navbar = () => {
   const searchInput = (
@@ -52,14 +53,18 @@ export const Navbar = () => {
   );
 
   return (
-    <NextUINavbar maxWidth="xl" position="sticky">
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <NavbarBrand as="li" className="gap-3 max-w-fit">
-          <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Logo />
-            <p className="font-bold text-inherit">P8st</p>
-          </NextLink>
-        </NavbarBrand>
+    <NextUINavbar maxWidth="full" position="sticky">
+      <NavbarBrand as="li" className="block gap-3 min-w-40">
+        <NextLink className="flex justify-start items-center gap-1" href="/">
+          <Logo />
+          <p className="font-bold text-inherit">P8st</p>
+        </NextLink>
+      </NavbarBrand>
+
+      <NavbarContent
+        className="basis-1/5 sm:basis-full"
+        justify="center"
+      >
         <ul className="hidden lg:flex gap-4 justify-center ml-2">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
@@ -71,7 +76,13 @@ export const Navbar = () => {
                 color="foreground"
                 href={item.href}
               >
-                {item.label}
+                {item.label === "Arcade" ? (
+                  <Badge content="new" color="danger" size="sm">
+                    {item.label}
+                  </Badge>
+                ) : (
+                  item.label
+                )}
               </NextLink>
             </NavbarItem>
           ))}
@@ -83,12 +94,12 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
-          <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
+          {/* <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
             <TwitterIcon className="text-default-500" />
-          </Link>
-          <Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
+          </Link> */}
+          {/* <Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
             <DiscordIcon className="text-default-500" />
-          </Link>
+          </Link> */}
           <Link isExternal aria-label="Github" href={siteConfig.links.github}>
             <GithubIcon className="text-default-500" />
           </Link>

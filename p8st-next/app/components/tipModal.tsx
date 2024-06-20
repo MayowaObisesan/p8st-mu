@@ -59,7 +59,7 @@ export const TipModal = ({address}: {address: string}) => {
         <AlertDialog.Root open={isModalOpen}>
             <AlertDialog.Trigger asChild>
                 <div
-                    className={"absolute right-0 btn btn-sm md:btn-md btn-ghost rounded-box font-normal text-xs flex flex-row items-center lg:gap-x-3"}
+                    className={"absolute right-4 btn btn-sm md:btn-md btn-ghost rounded-box font-normal text-xs flex flex-row items-center lg:gap-x-3"}
                     onClick={() => setIsModalOpen(true)}
                 >
                     <LucideHandCoins size={8} width={18} height={18} className={"text-xs"}/>

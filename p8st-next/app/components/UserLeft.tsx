@@ -25,6 +25,8 @@ import {
   CardFooter,
   Avatar as NAvatar,
   Button,
+  User,
+  Skeleton,
 } from "@nextui-org/react";
 import VerifyIdentity from "./VerifyIdentityForm";
 import ProfileFormModal from "./ProfileFormModal";
@@ -50,14 +52,6 @@ export const NoProfileCard = () => {
   const { verified, setVerified } = usePeepsContext()
   return (
     <>
-      <Card className="bg-green-700 my-4">
-        <CardBody className="flex flex-row gap-x-4 text-tiny text-default-800">
-          <LucideCheck />
-          <span className="">
-            🥳🎉 You have verified your Proof of Humanity
-          </span>
-        </CardBody>
-      </Card>
       <Card className="bg-amber-400/40 my-4">
         <CardBody>
           <div className="font-bold text-default-500">Action Required</div>
@@ -111,68 +105,111 @@ export const UserLeft = () => {
         className={`hidden lg:block w-full sticky lg:top-28 lg:w-[60%] mx-auto px-2`}
       >
         <Card className="max-w-[340px]">
-          <CardHeader className="justify-between">
-            <div className="flex gap-5">
-              <NAvatar
-                isBordered
-                radius="full"
-                size="md"
-                src={userData?.profilePicture}
-              />
-              <div className="flex flex-col gap-1 items-start justify-center">
-                <h4 className="text-small font-semibold leading-none text-default-600">
-                  {userData?.displayName ? userData?.displayName : "Anonymous"}
-                </h4>
-                <h5 className="text-small tracking-tight text-default-400">
-                  @{userData?.username ? userData?.username : "Anonymous"}
-                </h5>
-              </div>
-            </div>
-            <Button
-              isIconOnly
-              className={
-                isFollowed
-                  ? "bg-transparent text-foreground border-default-200"
-                  : ""
-              }
-              color={isFollowed ? "danger" : "primary"}
-              radius="full"
-              size="sm"
-              variant={isFollowed ? "bordered" : "solid"}
-              onPress={() => setIsFollowed(!isFollowed)}
-              aria-label={isFollowed ? "Unfollow" : "Follow"}
-            >
-              {isFollowed ? <LucideMinus size={8} /> : <LucidePlus size={12} />}
-            </Button>
-          </CardHeader>
-          <CardBody className="px-3 py-0 text-small text-default-400">
-            <p>{userData?.bio ? userData?.bio : "***"}</p>
-            {userData?.bio && (
-              <span className="pt-2">
-                #new_user
-                <span className="py-2" aria-label="computer" role="img">
-                  💻
-                </span>
-              </span>
-            )}
-          </CardBody>
-          {userData?.username && (
-            <CardFooter className="gap-3">
-              <div className="flex gap-1">
-                <p className="font-semibold text-default-400 text-small">
-                  {userData?.followers}
-                </p>
-                <p className=" text-default-400 text-small">Following</p>
-              </div>
-              <div className="flex gap-1">
-                <p className="font-semibold text-default-400 text-small">
-                  {userData?.following}
-                </p>
-                <p className="text-default-400 text-small">Followers</p>
-              </div>
-            </CardFooter>
+          {walletStatus === "connected" && hasProfile ? (
+            <>
+              <CardHeader className="justify-between">
+                <div className="flex gap-5">
+                  <NAvatar
+                    isBordered
+                    radius="full"
+                    size="md"
+                    src={userData?.profilePicture}
+                  />
+                  <div className="flex flex-col gap-1 items-start justify-center">
+                    <h4 className="text-small font-semibold leading-none text-default-600">
+                      {userData?.displayName
+                        ? userData?.displayName
+                        : "Anonymous"}
+                    </h4>
+                    <h5 className="text-small tracking-tight text-default-400">
+                      @{userData?.username ? userData?.username : "Anonymous"}
+                    </h5>
+                  </div>
+                </div>
+                <Button
+                  isIconOnly
+                  className={
+                    isFollowed
+                      ? "bg-transparent text-foreground border-default-200"
+                      : ""
+                  }
+                  color={isFollowed ? "danger" : "primary"}
+                  radius="full"
+                  size="sm"
+                  variant={isFollowed ? "bordered" : "solid"}
+                  onPress={() => setIsFollowed(!isFollowed)}
+                  aria-label={isFollowed ? "Unfollow" : "Follow"}
+                >
+                  {isFollowed ? (
+                    <LucideMinus size={8} />
+                  ) : (
+                    <LucidePlus size={12} />
+                  )}
+                </Button>
+              </CardHeader>
+              <CardBody className="px-3 py-0 text-small text-default-400">
+                <p>{userData?.bio ? userData?.bio : "***"}</p>
+                {userData?.bio && (
+                  <span className="pt-2">
+                    #new_user
+                    <span className="py-2" aria-label="computer" role="img">
+                      💻
+                    </span>
+                  </span>
+                )}
+              </CardBody>
+              {userData?.username && (
+                <CardFooter className="gap-3">
+                  <div className="flex gap-1">
+                    <p className="font-semibold text-default-400 text-small">
+                      {userData?.followers}
+                    </p>
+                    <p className=" text-default-400 text-small">Following</p>
+                  </div>
+                  <div className="flex gap-1">
+                    <p className="font-semibold text-default-400 text-small">
+                      {userData?.following}
+                    </p>
+                    <p className="text-default-400 text-small">Followers</p>
+                  </div>
+                </CardFooter>
+              )}
+            </>
+          ) : (
+            <>
+              {walletStatus === "connecting" ? (
+                <>
+                  <div className="avatar">
+                    <div className="w-12 rounded-full ring ring-primary-content ring-offset-base-100 ring-offset-2">
+                      <Skeleton className="skeleton w-12 h-12 rounded-full" />
+                    </div>
+                  </div>
+                  <div className="grow space-y-2">
+                    <Skeleton className="skeleton w-full h-6 max-w-sm" />
+                    <Skeleton className="skeleton w-20 h-4" />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="justify-center items-start">
+                    <User name="" description="" avatarProps={{ src: "" }} />
+                  </div>
+                </>
+              )}
+            </>
           )}
         </Card>
+
+        {walletStatus === "connected" && hasProfile && (
+          <Card className="bg-green-700 my-4">
+            <CardBody className="flex flex-row gap-x-4 text-tiny text-default-800">
+              <LucideCheck />
+              <span className="">
+                🥳🎉 You have verified your Proof of Humanity
+              </span>
+            </CardBody>
+          </Card>
+        )}
 
         <div
           className={
