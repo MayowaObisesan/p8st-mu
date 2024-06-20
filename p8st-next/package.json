@@ -33,6 +33,7 @@
     "@typescript-eslint/eslint-plugin": "^7.10.0",
     "@typescript-eslint/parser": "^7.10.0",
     "@uidotdev/usehooks": "^2.4.1",
+    "@zkpass/transgate-js-sdk": "^0.2.0",
     "apexcharts": "^3.49.0",
     "autoprefixer": "10.4.19",
     "axios": "^1.6.8",
@@ -66,7 +67,8 @@
     "thirdweb": "^5",
     "typescript": "5.0.4",
     "urql": "^4.1.0",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "web3": "^4.10.0"
   },
   "devDependencies": {
     "@types/uuid": "^9.0.8"

@@ -47,6 +47,7 @@ export const Avatar = ({ profileImage }: { profileImage: string }) => {
 };
 
 export const NoProfileCard = () => {
+  const { verified, setVerified } = usePeepsContext()
   return (
     <>
       <Card className="bg-green-700 my-4">
@@ -61,8 +62,7 @@ export const NoProfileCard = () => {
         <CardBody>
           <div className="font-bold text-default-500">Action Required</div>
           <p>You have not created your Profile.</p>
-          <VerifyIdentity />
-          <ProfileFormModal />
+          {verified ? <ProfileFormModal /> : <VerifyIdentity />}
         </CardBody>
       </Card>
     </>
