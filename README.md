@@ -1,4 +1,4 @@
-# PEEPS
+# zkP8st by PEEPS
 
 ![Image](./readme_images/Peeps-small.png)
 
@@ -6,11 +6,11 @@ Welcome to Peeps!
 
 ## OVERVIEW
 
-Peeps is an innovative social media platform which brings the fusion of traditional micro-blogging with elements of blockchain's DeFi! 💬💼
+Peeps is an innovative social media platform which brings the fusion of traditional micro-blogging with elements of blockchain's DeFi and gaming! 💬💼🎮
 
 Powered by Cartesi, users will enjoy classic social media features as well as leverage DeFi to create a seamless tipping system. Users can directly reward content creators they value with cryptocurrency, fostering a strong creator economy. All are driven by the Cartesi Machine's high computational power to run recommendation algorithms and facilitate payment. It aims to push the boundaries of conventional social networking by providing a more personalized, secure, and engaging experience for users.
 
-Read more detailed documentation at [Peeps Documentation](https://peeps-docs.vercel.app/).
+Read more detailed documentation at [Peeps with zkP8st Documentation](https://peeps-docs.vercel.app/).
 
 This repository contains the source code for the MVP dApp of Peeps as built on Cartesi and deployed to the Arbitrum testnet.
 
@@ -78,22 +78,11 @@ Please let us know your feedback by raising an issue on the repo on github or se
 
 ## PEEPS TECHNICAL ARCHITECTURE
 
-![Image](./readme_images/Peeps-architecture.jpg)
+![Image](./readme_images/Peeps-architecture.png)
 
 ## DEMO VIDEO
 
-You can view the video by clicking [here](https://www.loom.com/share/).
-
-## SCREENSHOTS OF PEEPS
-
-![Image](./readme_images/screenshots/1.png)
-![Image](./readme_images/screenshots/2.png)
-![Image](./readme_images/screenshots/3.png)
-![Image](./readme_images/screenshots/4.png)
-![Image](./readme_images/screenshots/5.png)
-![Image](./readme_images/screenshots/6.png)
-![Image](./readme_images/screenshots/7.png)
-![Image](./readme_images/screenshots/8.png)
+You can view the video by clicking [here](https://youtu.be/I-1j_p4fSoU).
 
 ---
 
