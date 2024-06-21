@@ -151,7 +151,7 @@ export default function ProfileFormModal() {
 
   return (
     <>
-      <Button onPress={onOpen} color="">
+      <Button onPress={onOpen} color="success" variant="shadow">
         Create Profile
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
@@ -247,7 +247,8 @@ export default function ProfileFormModal() {
                 <Button
                   isDisabled={(displayName && username) === ""}
                   color="success"
-                  onPress={onClose}
+                  // onPress={onClose}
+                  onClick={handleCreateProfile}
                 >
                   Submit
                 </Button>
