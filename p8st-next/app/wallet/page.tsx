@@ -61,6 +61,7 @@ const nftGrid = [
 const Wallet = () => {
   const { walletBalance, coinbaseVerified, setCoinbaseVerified } =
     usePeepsContext();
+  const web3 = new Web3();
   // const [{ wallet }] = useConnectWallet();
   const walletStatus = useActiveWalletConnectionStatus();
   const { activeAddress } = usePeepsContext();
@@ -110,7 +111,7 @@ const Wallet = () => {
           publicFieldsHash,
           recipient,
           validatorSignature,
-        } = await connector.launch(schemaId);
+        } = await (connector.launch(schemaId) as unknown as any);
         const taskIdHex = Web3.utils.stringToHex(taskId);
         const schemaIdHex = Web3.utils.stringToHex(schemaId);
 
@@ -121,7 +122,7 @@ const Wallet = () => {
         const paramsHash = Web3.utils.soliditySha3(encodeParams);
 
         const signedAllocatorAddress = web3.eth.accounts.recover(
-          paramsHash,
+          paramsHash!,
           allocatorSignature
         );
 
@@ -144,7 +145,7 @@ const Wallet = () => {
         const paramsHash1 = Web3.utils.soliditySha3(encodeParams1);
 
         const signedValidatorAddress = web3.eth.accounts.recover(
-          paramsHash1,
+          paramsHash1!,
           validatorSignature
         );
 

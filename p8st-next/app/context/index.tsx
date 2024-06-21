@@ -17,6 +17,7 @@ import { Address } from "thirdweb";
 import { useActiveAccount, useActiveWalletChain, useActiveWalletConnectionStatus, useConnect } from "thirdweb/react";
 
 import configFile from "../config.json";
+import { Report } from "../graphgQL";
 const config: any = configFile;
 
 interface IPeepsContext {

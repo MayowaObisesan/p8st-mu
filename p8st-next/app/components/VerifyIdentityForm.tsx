@@ -45,17 +45,17 @@ export default function VerifyIdentity() {
 
         // Launch the process of verification
         // This method can be invoked in a loop when dealing with multiple schemas
-        const { taskId, validatorAddress, allocatorSignature, uHash, publicFieldsHash, recipient, validatorSignature } = await connector.launch(schemaId)
+        const { taskId, validatorAddress, allocatorSignature, uHash, publicFieldsHash, recipient, validatorSignature } = await (connector?.launch(schemaId) as unknown as any);
         const taskIdHex = Web3.utils.stringToHex(taskId)
         const schemaIdHex = Web3.utils.stringToHex(schemaId)
 
         const encodeParams = web3.eth.abi.encodeParameters(
           ["bytes32", "bytes32", "address"],
           [taskIdHex, schemaIdHex, validatorAddress]
-        )
-        const paramsHash = Web3.utils.soliditySha3(encodeParams)
+        );
+        const paramsHash = Web3.utils.soliditySha3(encodeParams);
 
-        const signedAllocatorAddress = web3.eth.accounts.recover(paramsHash, allocatorSignature)
+        const signedAllocatorAddress = web3.eth.accounts.recover(paramsHash!, allocatorSignature);
 
         console.log(signedAllocatorAddress === "0x19a567b3b212a5b35bA0E3B600FbEd5c2eE9083d")
 
@@ -72,7 +72,7 @@ export default function VerifyIdentity() {
 
         const paramsHash1 = Web3.utils.soliditySha3(encodeParams1)
 
-        const signedValidatorAddress = web3.eth.accounts.recover(paramsHash1, validatorSignature)
+        const signedValidatorAddress = web3.eth.accounts.recover(paramsHash1!, validatorSignature)
 
         console.log(signedValidatorAddress === validatorAddress)
 
@@ -113,7 +113,7 @@ export default function VerifyIdentity() {
 
         // Launch the process of verification
         // This method can be invoked in a loop when dealing with multiple schemas
-        const { taskId, validatorAddress, allocatorSignature, uHash, publicFieldsHash, recipient, validatorSignature } = await connector.launch(schemaId)
+        const { taskId, validatorAddress, allocatorSignature, uHash, publicFieldsHash, recipient, validatorSignature } = await (connector.launch(schemaId) as unknown as any);
         const taskIdHex = Web3.utils.stringToHex(taskId)
         const schemaIdHex = Web3.utils.stringToHex(schemaId)
 
@@ -123,7 +123,7 @@ export default function VerifyIdentity() {
         )
         const paramsHash = Web3.utils.soliditySha3(encodeParams)
 
-        const signedAllocatorAddress = web3.eth.accounts.recover(paramsHash, allocatorSignature)
+        const signedAllocatorAddress = web3.eth.accounts.recover(paramsHash!, allocatorSignature)
 
         console.log(signedAllocatorAddress === "0x19a567b3b212a5b35bA0E3B600FbEd5c2eE9083d")
 
@@ -140,7 +140,7 @@ export default function VerifyIdentity() {
 
         const paramsHash1 = Web3.utils.soliditySha3(encodeParams1)
 
-        const signedValidatorAddress = web3.eth.accounts.recover(paramsHash1, validatorSignature)
+        const signedValidatorAddress = web3.eth.accounts.recover(paramsHash1!, validatorSignature)
 
         console.log(signedValidatorAddress === validatorAddress)
 

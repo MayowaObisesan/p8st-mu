@@ -334,12 +334,12 @@ const Profile = ({ params }: { params: any }) => {
       </div>*/}
         {walletStatus === "connected" && !hasProfile ? (
           <>
-            <div
+            <Card
               className={
-                "card card-bordered bg-gray-200 dark:bg-base-200 p-4 flex flex-row items-center gap-x-4 rounded-sm"
+                "p-4 flex flex-row items-center gap-x-4 rounded-sm"
               }
             >
-              <Avatar profileImage={""} />
+              <NAvatar src={""} />
               <div className="grow">
                 <h4 className="font-semibold text-sm text-gray-800 dark:text-white">
                   {"Anonymous"}
@@ -348,7 +348,7 @@ const Profile = ({ params }: { params: any }) => {
                   ...
                 </p>
               </div>
-            </div>
+            </Card>
             <NoProfileCard />
           </>
         ) : (

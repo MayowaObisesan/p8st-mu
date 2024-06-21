@@ -20,10 +20,10 @@ export const siteConfig = {
       label: "Arcade",
       href: "/arcade",
     },
-    {
-      label: "About",
-      href: "/about",
-    },
+    // {
+    //   label: "About",
+    //   href: "/about",
+    // },
   ],
   navMenuItems: [
     {
