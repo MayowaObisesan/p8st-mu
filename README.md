@@ -33,8 +33,9 @@ We chose Cartesi to run the social recommendations and incorporate DeFi into soc
 
 ### Using live Peeps Demo dApp
 
-1. Go to [Peeps live website](https://peeps-dev.vercel.app) to begin your journey in the future of decentralised social media experience.
-2. On the demo dApp, you will be able to test the following features: 
+1. The zkPaste upgrade is not yet live, you can deploy and work with locally but you can test the live version of Peeps v.0. Peeps v.0 works without the zkPass implementation.
+2. Go to [Peeps live website](https://peeps-dev.vercel.app) to begin your journey in the future of decentralised social media experience.
+3. On the demo dApp, you will be able to test the following features: 
 
 - Social/Wallet Login
 
