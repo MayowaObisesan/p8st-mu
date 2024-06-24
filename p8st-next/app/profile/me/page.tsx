@@ -492,7 +492,7 @@ const Profile = ({ params }: { params: any }) => {
 
             {/* Profile Tabs - Posts, Followers, Likes*/}
             <Tabs aria-label="Options">
-              <NTab key="posts" title="Postss">
+              <NTab key="posts" title="Posts">
                 {myPostsData ? (
                   myPostsData.map((eachPost: any, index: number) => (
                     <PostContainer key={index}>
@@ -515,10 +515,6 @@ const Profile = ({ params }: { params: any }) => {
                   <Card>
                     <CardBody>
                       <div>No posts</div>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     </CardBody>
                   </Card>
                 )}
@@ -578,9 +574,6 @@ const Profile = ({ params }: { params: any }) => {
                   <Card>
                     <CardBody>
                       <div>No Followers yet</div>
-                      <br />
-                      Excepteur sint occaecat cupidatat non proident, sunt in
-                      culpa qui officia deserunt mollit anim id est laborum.
                     </CardBody>
                   </Card>
                 )}

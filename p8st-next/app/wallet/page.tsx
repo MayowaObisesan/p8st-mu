@@ -351,7 +351,7 @@ const Wallet = () => {
         </section>
         <section className={"mt-16 px-2"}>
           <header className="font-medium text-xl text-base-content/60">
-            Your Token details on Peeps
+            Your Token details
           </header>
           <section className={"grid grid-cols-3 gap-4 py-4"}>
             {transactionsGrid.map((eachTxGrid, index) => (
@@ -367,12 +367,12 @@ const Wallet = () => {
         </section>
 
         <section>
-          <section className={"mt-16 lg:mt-28 px-4"}>
+          {/* <section className={"mt-16 lg:mt-28 px-4"}>
             <header className="font-medium text-xl text-base-content/60">
               Your Voucher History
             </header>
             <Voucher />
-          </section>
+          </section> */}
 
           <section className={"mt-16 lg:mt-28 px-4"}>
             <header className="font-medium text-xl text-base-content/60">
