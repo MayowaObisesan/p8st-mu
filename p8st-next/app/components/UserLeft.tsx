@@ -126,7 +126,7 @@ export const UserLeft = () => {
                     </h5>
                   </div>
                 </div>
-                <Button
+                {/* <Button
                   isIconOnly
                   className={
                     isFollowed
@@ -145,7 +145,7 @@ export const UserLeft = () => {
                   ) : (
                     <LucidePlus size={12} />
                   )}
-                </Button>
+                </Button> */}
               </CardHeader>
               <CardBody className="px-3 py-0 text-small text-default-400">
                 <p>{userData?.bio ? userData?.bio : "***"}</p>
@@ -205,7 +205,7 @@ export const UserLeft = () => {
             <CardBody className="flex flex-row gap-x-4 text-tiny text-default-800">
               <LucideCheck />
               <span className="">
-                🥳🎉 You have verified your Proof of Humanity
+                🥳🎉 You have verified your Proof of Humanity using ZK PASS
               </span>
             </CardBody>
           </Card>

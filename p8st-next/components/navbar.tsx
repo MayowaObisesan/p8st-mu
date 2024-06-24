@@ -132,8 +132,8 @@ export const Navbar = () => {
               label: "Sign in",
               style: {
                 display: "flex",
-                background: "#4563eb",
-                color: "white",
+                background: "#17c964",
+                color: "black",
                 borderRadius: ".8rem",
                 height: "2.75rem",
                 width: "auto",

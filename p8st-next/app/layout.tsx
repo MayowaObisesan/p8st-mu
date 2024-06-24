@@ -20,6 +20,7 @@ import { ThirdwebProvider } from "thirdweb/react";
 import PeepsProvider from "./context";
 import { Toaster } from "react-hot-toast";
 import { MobileNavigation } from "./components/MobileNavigation";
+import { MinimalFooter } from "@/components/footer";
 
 const metadata: Metadata = {
   title: {
@@ -84,19 +85,28 @@ export default function RootLayout({
               <Providers
                 themeProps={{ attribute: "class", defaultTheme: "dark" }}
               >
-                <div className="relative flex flex-col h-screen p-0">
+                <div className="relative flex flex-col h-screen p-0 overflow-auto">
                   <Navbar />
                   <main className="mx-auto w-full pt-16 flex-grow">
                     {children}
                   </main>
-                  <footer className="w-full flex items-center justify-center py-3">
+                  <footer className="w-full flex flex-col items-center justify-center gap-x-4 gap-y-2 py-8">
                     <Link
                       isExternal
-                      className="flex items-center gap-1 text-current"
+                      className="flex items-center gap-1 text-current text-lg font-bold"
                       href="https://nextui-docs-v2.vercel.app?utm_source=next-app-template"
                       title="nextui.org homepage"
                     >
                       <span className="text-default-600">Powered by</span>
+                      <p className="text-success">ZK-PASS</p>
+                    </Link>
+                    <Link
+                      isExternal
+                      className="flex items-center gap-1 text-current text-sm"
+                      href="https://nextui-docs-v2.vercel.app?utm_source=next-app-template"
+                      title="nextui.org homepage"
+                    >
+                      <span className="text-default-600">Design Library by</span>
                       <p className="text-primary">NextUI</p>
                     </Link>
                   </footer>
