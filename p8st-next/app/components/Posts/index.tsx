@@ -289,13 +289,13 @@ export const PostActionsContainer = ({
         </span>
       </div>
 
-      <CommentModal
+      {/* <CommentModal
         postUuid={postId}
         message={message}
         upload={upload}
         postData={postData}
         postMetaData={postMetaData?.[postId]}
-      />
+      /> */}
       
       <CommentFormModal
         postUuid={postId}
